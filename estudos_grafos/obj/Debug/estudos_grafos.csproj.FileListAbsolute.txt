@@ -5,3 +5,10 @@ C:\Users\gguima\source\graph\estudos_grafos\obj\Debug\estudos_grafos.csprojAssem
 C:\Users\gguima\source\graph\estudos_grafos\obj\Debug\estudos_grafos.csproj.CoreCompileInputs.cache
 C:\Users\gguima\source\graph\estudos_grafos\obj\Debug\estudos_grafos.exe
 C:\Users\gguima\source\graph\estudos_grafos\obj\Debug\estudos_grafos.pdb
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\bin\Debug\estudos_grafos.exe.config
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\bin\Debug\estudos_grafos.exe
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\bin\Debug\estudos_grafos.pdb
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\obj\Debug\estudos_grafos.csprojAssemblyReference.cache
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\obj\Debug\estudos_grafos.csproj.CoreCompileInputs.cache
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\obj\Debug\estudos_grafos.exe
+C:\Users\gguimaraes\source\repos\Grafos\estudos_grafos\obj\Debug\estudos_grafos.pdb

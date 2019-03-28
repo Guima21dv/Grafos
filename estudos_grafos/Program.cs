@@ -23,7 +23,7 @@ namespace estudos_grafos
             }
             Console.WriteLine($"Foi adicionado ao grafo os seguintes vértices: ");
             Console.WriteLine();
-            foreach (Vertice item in g1.Rotulos)
+            foreach (Vertice item in g1.Vertices)
             {
                 Console.WriteLine(item.Rotulo);
             }
@@ -47,6 +47,8 @@ namespace estudos_grafos
             } while (aresta != "0");
 
             g1.imprimeMatriz();
+
+            g1.imprimeLista();
 
 
             Console.ReadLine();

@@ -25,7 +25,9 @@ namespace estudos_grafos.Entities
                 for(int j = 0; j < N; j++)
                 {
                     MatrizAdjacencia[i, j] = 0;
+                    
                 }
+                ListaAdjacencia[i] = new List<int>();
             }
         }
         //ADICIONA VÉRTICE AO VETOR DE RÓTULOS. AS POSIÇÕES DESTE VETOR SERÁ UTILIZADA PARA CRIAÇÃO DA MATRIZ DE ADJACENCIA
@@ -50,6 +52,7 @@ namespace estudos_grafos.Entities
             int posVertice2;
             if(aux.Length != 2)
             {
+                Console.WriteLine("Parâmetros incorretos para inserção de aresta.");
                 return false;
             }
             posVertice1 = existeVertice(aux[0]);//Verifica se o primeiro vértice existe procurando seu rótulo no vetor de vértices.
@@ -58,8 +61,12 @@ namespace estudos_grafos.Entities
             {
                 MatrizAdjacencia[posVertice1, posVertice2] = 1;
                 MatrizAdjacencia[posVertice2, posVertice1] = 1;
+
                 ListaAdjacencia[posVertice1].Add(posVertice2);
                 ListaAdjacencia[posVertice2].Add(posVertice1);
+
+                Vertices[posVertice1].Grau++;
+                Vertices[posVertice2].Grau++;
             }
             else
             {
@@ -89,7 +96,12 @@ namespace estudos_grafos.Entities
         {
             for(int i = 0; i < N; i++)
             {
-
+                string resultado = "(" + Vertices[i] + ") ";
+                foreach(int vertice in ListaAdjacencia[i])
+                {
+                    resultado += " -> " + Vertices[vertice];
+                }
+                Console.WriteLine(resultado);
             }
         }
 
