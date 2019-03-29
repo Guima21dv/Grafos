@@ -52,7 +52,12 @@ namespace estudos_grafos.Entities
             int posVertice2;
             if(aux.Length != 2)
             {
-                Console.WriteLine("Parâmetros incorretos para inserção de aresta.");
+                if(aux[0] == "0")
+                {
+                    Console.WriteLine();
+                    return false;
+                }
+                Console.WriteLine("Parâmetros incorretos para inserção de aresta.\n");
                 return false;
             }
             posVertice1 = existeVertice(aux[0]);//Verifica se o primeiro vértice existe procurando seu rótulo no vetor de vértices.
@@ -70,7 +75,7 @@ namespace estudos_grafos.Entities
             }
             else
             {
-                Console.WriteLine("Não foi encontrado vértices correspondentes.");
+                Console.WriteLine("Não foi encontrado vértices correspondentes.\n");
                 return false;
             }
             M++;
@@ -78,32 +83,7 @@ namespace estudos_grafos.Entities
             
         }
 
-        public void imprimeMatriz()//Imprime a matriz de adjacência com formatação bem furreca
-        {
-            for(int i = 0; i < N; i++)
-            {
-                Console.Write(i + " ");
-                for(int j = 0; j < N; j++)
-                {
-                    Console.Write(MatrizAdjacencia[i, j] + " ");
-                    
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public void imprimeLista()
-        {
-            for(int i = 0; i < N; i++)
-            {
-                string resultado = "(" + Vertices[i] + ") ";
-                foreach(int vertice in ListaAdjacencia[i])
-                {
-                    resultado += " -> " + Vertices[vertice];
-                }
-                Console.WriteLine(resultado);
-            }
-        }
+        
 
         private int existeVertice(string rotulo)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
         {
@@ -115,6 +95,34 @@ namespace estudos_grafos.Entities
                 }
             }
             return -1;
+        }
+
+        public void imprimeMatriz()//Imprime a matriz de adjacência com formatação bem furreca
+        {
+            for (int i = 0; i < N; i++)
+            {
+                Console.Write(i + " ");
+                for (int j = 0; j < N; j++)
+                {
+                    Console.Write(MatrizAdjacencia[i, j] + " ");
+
+                }
+                Console.WriteLine();
+            }
+        }
+        //MÉTODOS PARA IMPRESSÃO DA MATRIZ E LISTA DE ADJACÊNCIA
+
+        public void imprimeLista()
+        {
+            for (int i = 0; i < N; i++)
+            {
+                string resultado = "(" + Vertices[i].Rotulo + ") ";
+                foreach (int vertice in ListaAdjacencia[i])
+                {
+                    resultado += " -> " + Vertices[vertice].Rotulo;
+                }
+                Console.WriteLine(resultado);
+            }
         }
     }
 }
