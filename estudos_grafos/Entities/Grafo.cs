@@ -33,7 +33,7 @@ namespace estudos_grafos.Entities
         //ADICIONA VÉRTICE AO VETOR DE RÓTULOS. AS POSIÇÕES DESTE VETOR SERÁ UTILIZADA PARA CRIAÇÃO DA MATRIZ DE ADJACENCIA
         public void adicionaVertice(Vertice v)
         {
-            if (!v.isNull()) {
+            if (!v.isNull() && existeVertice(v.Rotulo) == -1) {
                 for (int i = 0; i < N; i++)
                 {
                     if (Vertices[i] == null)
@@ -42,6 +42,10 @@ namespace estudos_grafos.Entities
                         break;
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Vértice já existe nesse!");
             }
         }
 
@@ -123,6 +127,16 @@ namespace estudos_grafos.Entities
                 }
                 Console.WriteLine(resultado);
             }
+        }
+
+        //CAMINHO MINIMO ALGORITMO DE DIJKSTRA
+
+
+        public void algoritmoDijkstra()
+        {
+            int k = 0;
+            HashSet<Vertice> A;
+            
         }
     }
 }
