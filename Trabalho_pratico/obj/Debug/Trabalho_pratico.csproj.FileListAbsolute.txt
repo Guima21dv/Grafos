@@ -1,0 +1,10 @@
+C:\Users\gguima\source\graph\Trabalho_pratico\bin\Debug\Trabalho_pratico.exe.config
+C:\Users\gguima\source\graph\Trabalho_pratico\bin\Debug\Trabalho_pratico.exe
+C:\Users\gguima\source\graph\Trabalho_pratico\bin\Debug\Trabalho_pratico.pdb
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.csprojAssemblyReference.cache
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.Form1.resources
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.Properties.Resources.resources
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.csproj.GenerateResource.cache
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.csproj.CoreCompileInputs.cache
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.exe
+C:\Users\gguima\source\graph\Trabalho_pratico\obj\Debug\Trabalho_pratico.pdb

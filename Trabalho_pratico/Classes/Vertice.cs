@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace estudos_grafos.Entities
+namespace Trabalho_pratico.Classes
 {
     class Vertice
     {
