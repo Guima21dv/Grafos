@@ -45,6 +45,10 @@ namespace estudos_grafos
                 
 
             } while (aresta != "0");
+            Console.WriteLine("Insira o vértice pra saber seus vizinhos");
+            string vertice2 = Console.ReadLine();
+
+            g1.getVizinhos(g1.Vertices.)
 
             g1.imprimeMatriz();
 

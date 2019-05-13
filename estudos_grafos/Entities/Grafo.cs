@@ -11,7 +11,7 @@ namespace estudos_grafos.Entities
         public int M { get; set; } // Número de arestas
         public List<int>[] ListaAdjacencia{ get; set; } // Lista de adjacência sem rótulos
         public int[,] MatrizAdjacencia;//Matriz de adjacência do grafo
-        public Vertice [] Vertices { get; set; } //Vetor de Rótulos dos vértices
+        public List<Vertice> Vertices { get; set; } //Vetor de Rótulos dos vértices
         
         //CONSTRUTOR DA CLASSE
         public Grafo(int n)
@@ -19,7 +19,7 @@ namespace estudos_grafos.Entities
             N = n;//Atribui o parâmetro de construção á propriedade "N" 
             MatrizAdjacencia = new int[N, N]; //Inicializa a matriz de adjacência 
             ListaAdjacencia = new List<int>[N]; // Inicializa a lista de adjacência(necessita implementar)
-            Vertices = new Vertice[N]; //Inicializa o vetor de rótulos dos vértices
+            Vertices = new List<Vertice>(); //Inicializa o vetor de rótulos dos vértices
             for(int i = 0; i < N; i++)
             {
                 for(int j = 0; j < N; j++)
@@ -87,15 +87,49 @@ namespace estudos_grafos.Entities
             
         }
 
-        
+        public List<int> getVizinhos(Vertice v)
+        {
+
+            List<int> vizinhos = new List<int>();
+            for (int i = 0; i < MatrizAdjacencia.Length; i++)
+            {
+                if (MatrizAdjacencia[indiceVertice(v), i] > 0)
+                {
+                    vizinhos.Add(i);
+                }
+            }
+            return vizinhos;
+        }
+
+        private int indiceVertice(Vertice vertice)
+        {
+            for (int i = 0; i < N; i++)
+            {
+                if (Vertices[i].Rotulo == vertice.Rotulo && !Vertices[i].isNull())
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
 
         private int existeVertice(string rotulo)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
         {
-            for(int i = 0; i < N; i++)
+            //for(int i = 0; i < N; i++)
+            //{
+            //    if(Vertices[i].Rotulo == rotulo && !Vertices[i].isNull())
+            //    {
+            //        return i; 
+            //    }
+            //}
+            //return -1;
+            foreach (Vertice v in Vertices)
             {
-                if(Vertices[i].Rotulo == rotulo && !Vertices[i].isNull())
+                if (Vertices.Contains(v))
                 {
-                    return i; 
+                    return Vertices.IndexOf(v);
                 }
             }
             return -1;

@@ -51,6 +51,11 @@ namespace Trabalho_pratico.Classes
             }
         }
 
+        public void removeVertice(Vertice v)
+        {
+            //Falta implementação.
+        }
+
         public bool adicionaAresta(string aresta) //Adiciona aresta verificando se foi enviado uma sentença correta como padrão descrito(Vertice-Vertice)
         {                                         //verificando se é um par de rótulos separados por hífen(-)
             string[] aux = aresta.Split('-');
@@ -105,7 +110,18 @@ namespace Trabalho_pratico.Classes
             return true;
         }
 
-
+        public List<int> getVizinhos(Vertice v)
+        {
+            
+            List<int> vizinhos = new List<int>();
+            for(int i = 0; i < MatrizAdjacencia.Length; i++)
+            {
+                if (MatrizAdjacencia[indiceVertice(v), i] > 0) {
+                    vizinhos.Add(i);
+                }
+            }
+            return vizinhos;
+        }
 
         private int existeVertice(string rotulo)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
         {
@@ -183,7 +199,10 @@ namespace Trabalho_pratico.Classes
             {
                 k++;
 
-                for(int i = 0; )
+                for(int i = 0; ;i++)
+                {
+
+                }
             }
             
             
