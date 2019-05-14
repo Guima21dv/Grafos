@@ -9,23 +9,24 @@ namespace estudos_grafos.Entities
         //Atributos da classe Grafo
         public int N { get; set; } // Número de vértices
         public int M { get; set; } // Número de arestas
-        public List<int>[] ListaAdjacencia{ get; set; } // Lista de adjacência sem rótulos
+        private const int INFINITO = int.MaxValue;
+        public List<int>[] ListaAdjacencia { get; set; } // Lista de adjacência sem rótulos
         public int[,] MatrizAdjacencia;//Matriz de adjacência do grafo
-        public List<Vertice> Vertices { get; set; } //Vetor de Rótulos dos vértices
-        
+        public Vertice[] Vertices { get; set; } //Vetor de Rótulos dos vértices
+
         //CONSTRUTOR DA CLASSE
         public Grafo(int n)
         {
             N = n;//Atribui o parâmetro de construção á propriedade "N" 
             MatrizAdjacencia = new int[N, N]; //Inicializa a matriz de adjacência 
             ListaAdjacencia = new List<int>[N]; // Inicializa a lista de adjacência(necessita implementar)
-            Vertices = new List<Vertice>(); //Inicializa o vetor de rótulos dos vértices
-            for(int i = 0; i < N; i++)
+            Vertices = new Vertice[N]; //Inicializa o vetor de rótulos dos vértices
+            for (int i = 0; i < N; i++)
             {
-                for(int j = 0; j < N; j++)
+                for (int j = 0; j < N; j++)
                 {
                     MatrizAdjacencia[i, j] = 0;
-                    
+
                 }
                 ListaAdjacencia[i] = new List<int>();
             }
@@ -33,7 +34,8 @@ namespace estudos_grafos.Entities
         //ADICIONA VÉRTICE AO VETOR DE RÓTULOS. AS POSIÇÕES DESTE VETOR SERÁ UTILIZADA PARA CRIAÇÃO DA MATRIZ e LISTA DE ADJACENCIA
         public void adicionaVertice(Vertice v)
         {
-            if (!v.isNull() && existeVertice(v.Rotulo) == -1) {
+            if (!v.isNull() && existeVertice(v.Rotulo) == -1)
+            {
                 for (int i = 0; i < N; i++)
                 {
                     if (Vertices[i] == null)
@@ -49,24 +51,24 @@ namespace estudos_grafos.Entities
             }
         }
 
+        public void removeVertice(Vertice v)
+        {
+            //Falta implementação.
+        }
+
         public bool adicionaAresta(string aresta) //Adiciona aresta verificando se foi enviado uma sentença correta como padrão descrito(Vertice-Vertice)
         {                                         //verificando se é um par de rótulos separados por hífen(-)
             string[] aux = aresta.Split('-');
             int posVertice1;
             int posVertice2;
-            if(aux.Length != 2)
+            if (aux.Length != 2)
             {
-                if(aux[0] == "0")
-                {
-                    Console.WriteLine();
-                    return false;
-                }
                 Console.WriteLine("Parâmetros incorretos para inserção de aresta.\n");
                 return false;
             }
             posVertice1 = existeVertice(aux[0]);//Verifica se o primeiro vértice existe procurando seu rótulo no vetor de vértices.
             posVertice2 = existeVertice(aux[1]);//Verifica se o segundo vértice existe procurando seu rótulo no vetor de vértices.
-            if(posVertice1 != -1 && posVertice2 != -1)
+            if (posVertice1 != -1 && posVertice2 != -1)
             {
                 MatrizAdjacencia[posVertice1, posVertice2] = 1;
                 MatrizAdjacencia[posVertice2, posVertice1] = 1;
@@ -84,7 +86,28 @@ namespace estudos_grafos.Entities
             }
             M++;
             return true;
-            
+
+        }
+
+        public bool adicionaArestaPonderada(Vertice origem, Vertice destino, int valor)
+        {
+            int indice_origem = indiceVertice(origem);//Verifica se o primeiro vértice existe procurando seu rótulo no vetor de vértices.
+            int indice_destino = indiceVertice(destino);//Verifica se o segundo vértice existe procurando seu rótulo no vetor de vértices.
+            if (indiceVertice(origem) != -1 && indiceVertice(destino) != -1)
+            {
+                MatrizAdjacencia[indice_origem, indice_destino] = valor;
+                MatrizAdjacencia[indice_destino, indice_origem] = valor;
+
+                Vertices[indice_origem].Grau++;
+                Vertices[indice_destino].Grau++;
+            }
+            else
+            {
+                Console.WriteLine("Não foi encontrado vértices correspondentes.\n");
+                return false;
+            }
+            M++;
+            return true;
         }
 
         public List<int> getVizinhos(Vertice v)
@@ -101,35 +124,28 @@ namespace estudos_grafos.Entities
             return vizinhos;
         }
 
-        private int indiceVertice(Vertice vertice)
+        private int existeVertice(string rotulo)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
+        {
+            for (int i = 0; i < N; i++)
+            {
+                if (!(Vertices[i] == null))
+                {
+                    if (Vertices[i].Rotulo == rotulo)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        private int indiceVertice(Vertice vertice)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
         {
             for (int i = 0; i < N; i++)
             {
                 if (Vertices[i].Rotulo == vertice.Rotulo && !Vertices[i].isNull())
                 {
                     return i;
-                }
-            }
-            return -1;
-        }
-
-
-
-        private int existeVertice(string rotulo)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
-        {
-            //for(int i = 0; i < N; i++)
-            //{
-            //    if(Vertices[i].Rotulo == rotulo && !Vertices[i].isNull())
-            //    {
-            //        return i; 
-            //    }
-            //}
-            //return -1;
-            foreach (Vertice v in Vertices)
-            {
-                if (Vertices.Contains(v))
-                {
-                    return Vertices.IndexOf(v);
                 }
             }
             return -1;
@@ -165,12 +181,37 @@ namespace estudos_grafos.Entities
 
         //CAMINHO MINIMO ALGORITMO DE DIJKSTRA
 
-
         public void algoritmoDijkstra()
         {
+
             int k = 0;
-            HashSet<Vertice> A;
-            
+            int[] vetor_rotas = new int[N];
+            vetor_rotas[0] = 0;
+            HashSet<Vertice> temporarios = new HashSet<Vertice>();
+            HashSet<Vertice> permanentes = new HashSet<Vertice>();
+            HashSet<Vertice> conjunto_s = new HashSet<Vertice>();
+            foreach (Vertice v in Vertices)
+            {
+                temporarios.Add(v);
+            }
+
+            for (int i = 1; i < vetor_rotas.Length; i++)
+            {
+                vetor_rotas[i] = INFINITO;
+            }
+
+            while (temporarios.Count != 0)
+            {
+                k++;
+
+                for (int i = 0; ; i++)
+                {
+
+                }
+            }
+
+
+
         }
     }
 }

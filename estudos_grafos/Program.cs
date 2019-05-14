@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using estudos_grafos.Entities;
 
 namespace estudos_grafos
@@ -48,7 +49,13 @@ namespace estudos_grafos
             Console.WriteLine("Insira o vértice pra saber seus vizinhos");
             string vertice2 = Console.ReadLine();
 
-            g1.getVizinhos(g1.Vertices.)
+            List<int> teste = new List<int>();
+            teste = g1.getVizinhos(g1.Vertices[0]);
+
+            foreach (int i in teste)
+            {
+                Console.WriteLine("aqui: " + i);
+            }
 
             g1.imprimeMatriz();
 
