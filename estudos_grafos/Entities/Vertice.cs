@@ -14,7 +14,7 @@ namespace estudos_grafos.Entities
             Rotulo = rotulo;
         }
 
-        public bool isNull()
+        public bool IsNull()
         {
             return this.Equals(null);
         }
