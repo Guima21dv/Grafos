@@ -1,72 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using estudos_grafos.Entities;
+using System.Linq;
+using System.IO;
 
 namespace estudos_grafos
 {
     class Program
     {
+        static void GeraTitlo()
+        {
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("*******   *****   *     *  *******  *******");
+            Console.WriteLine("*        *        **    *  *           *");
+            Console.WriteLine("*         *       * *   *  *           *");
+            Console.WriteLine("*          ****   *  *  *  ******      *");
+            Console.WriteLine("*              *  *   * *  *           *");
+            Console.WriteLine("*             *   *    **  *           *");
+            Console.WriteLine("*******  ******   *     *  *******     *");
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine();
+        }
+        //GERAÇÃO DO GRAFO
+        static Grafo grafo = new Grafo(20);
+        static int[] metrica_A = new int[20];
+        static int[] metrica_C = {
+                2,2,3,5,10,5,2,10,2,2,15,7,16,10,10,6,6,8,6,6,4,4,3,2,3,2,3,6,7,3,5,4
+            };
+        static int[] metrica_B = {
+                6,7,1,2,12,2,6,5,7,3,5,1,2,2,3,7,20,7,9,3,2,8,10,8,20,18,21,22,22,4,8,15
+            };
+        static
         static void Main(string[] args)
         {
-            //Console.WriteLine("*****INICIANDO TESTES PARA CRIAÇÃO DO GRAFO*****");
-            //Console.Write("Quantos vértices o grafo tem: ");
-            //int n = int.Parse(Console.ReadLine());
-            //Grafo g1 = new Grafo(n);
-            //Console.WriteLine("Número de vértices: " + g1.N);
-            //Console.WriteLine();
 
-            //for (int i = 0; i < n; i++)
-            //{
-            //    Console.Write($"Rótulo do {i+1}º vértice: ");
-            //    string rotulo = Console.ReadLine();
-
-            //    g1.AdicionaVertice(new Vertice(rotulo));
-            //}
-            //Console.WriteLine($"Foi adicionado ao grafo os seguintes vértices: ");
-            //Console.WriteLine();
-            //foreach (Vertice item in g1.Vertices)
-            //{
-            //    Console.WriteLine(item.Rotulo);
-            //}
-
-            //Console.WriteLine("Indique as arestas do grafo:");
-            //Console.WriteLine("**PARA CANCELAR A ENTRADA DE ARESTAS ESCREVA 0**\n");
-            //Console.WriteLine("Utilize o rótulo do vértice, um hífen, " +
-            //    "e o rótulo do segundo vértice.\n\nExemplo: Vertice1-Vertice2\n");
-
-            //string aresta;
-            //do
-            //{
-            //    Console.Write("Entre com a aresta ou 0 para cancelar: ");
-            //    aresta = Console.ReadLine();
-            //    if (g1.AdicionaAresta(aresta))
-            //    {
-            //        Console.WriteLine("Aresta adicionada!");
-            //    }
-
-
-            //} while (aresta != "0");
-            //Console.WriteLine("Insira o vértice pra saber seus vizinhos");
-            //string vertice2 = Console.ReadLine();
-
-            //List<int> teste = new List<int>();
-            //teste = g1.GetVizinhos(g1.Vertices[0]);
-
-            //foreach (int i in teste)
-            //{
-            //    Console.WriteLine("aqui: " + i);
-            //}
-
-            //g1.ImprimeMatriz();
-
-            //g1.ImprimeLista();
-
-
-            //Console.ReadLine();
-
-
-            //GERAÇÃO DO GRAFO
-            Grafo grafo = new Grafo(20);
+            
             //ADICIONANDO VÉRTICES AO GRAFO
             grafo.AdicionaVertice(new Vertice("POA"));
             grafo.AdicionaVertice(new Vertice("FLO"));
@@ -89,106 +57,256 @@ namespace estudos_grafos
             grafo.AdicionaVertice(new Vertice("REC"));
             grafo.AdicionaVertice(new Vertice("SLV"));
 
-            //VETORES DE MÉTRICAS
-            int[] metrica_A = new int[20];
-            for(int i = 0; i < metrica_A.Length; i++)
+            
+            for (int i = 0; i < metrica_A.Length; i++)
             {
                 metrica_A[i] = 1;
             }
-            int[] metrica_B = {
-                6,7,1,2,12,2,6,5,7,3,5,1,2,2,3,7,20,7,9,3,2,8,10,8,20,18,21,22,22,4,8,15
-            };
-            int[] metrica_C = {
-                2,2,3,5,10,5,2,10,2,2,15,7,16,10,10,6,6,8,6,6,4,4,3,2,3,2,3,6,7,3,5,4
-            };
-
-            foreach(int i in metrica_B)
-            {
-                Console.WriteLine(i);
-            }
-            Console.WriteLine(metrica_B.ToString());
-            Console.WriteLine(metrica_C.ToString());
-
-
-
-
-            Console.WriteLine("*****INICIANDO TESTES PARA CRIAÇÃO DO GRAFO*****");
-            Console.Write("Quantos vértices o grafo tem: ");
+            
+           
             try
             {
-                int n = int.Parse(Console.ReadLine());
+                GeraTitlo();
 
-                Grafo g1 = new Grafo(n);
-                Console.WriteLine("Número de vértices: " + g1.N);
-                Console.WriteLine();
-            
-
-            for (int i = 0; i < n; i++)
-            {
-                Console.Write($"Rótulo do {i + 1}º vértice: ");
-                string rotulo = Console.ReadLine();
-
-                g1.AdicionaVertice(new Vertice(rotulo));
-            }
-            Console.WriteLine($"Foi adicionado ao grafo os seguintes vértices: ");
-            Console.WriteLine();
-            foreach (Vertice v in g1.Vertices)
-            {
-                Console.WriteLine(v.Rotulo);
-            }
-
-            Console.WriteLine("Indique as arestas do grafo:");
-            Console.WriteLine("**PARA CANCELAR A ENTRADA DE ARESTAS ESCREVA 0**\n");
-            //Console.WriteLine("Utilize o rótulo do vértice, um hífen, " +
-                //"e o rótulo do segundo vértice.\n\nExemplo: Vertice1-Vertice2\n");
-
-            string aresta1="";
-            string aresta2="";
-            int valor_aresta;
-            while (aresta1 != "0")
-            {
-                Console.Write("Entre com o primeiro vertice ou 0 para cancelar: ");
-                aresta1 = Console.ReadLine();
-                if (aresta1 != "0")
+                List<string> menu_options = new List<string>()
                 {
-                    Console.Write("Entre com o segundo vertice ou 0 para cancelar: ");
-                    aresta2 = Console.ReadLine();
-                    Console.WriteLine("Digite o valor da aresta: ");
-                    valor_aresta = int.Parse(Console.ReadLine());
+                    "Calcular o caminho mínimo utilizando o Algoritmo de Dijkstra",
+                    "Gerar Falha em um nó",
+                    "Gerar Falha em uma aresta",
+                    "Redefinir Grafo",
+                    "Fechar a aplicação"
 
-                    if (g1.AdicionaArestaPonderada(new Vertice(aresta1), new Vertice(aresta2), valor_aresta))
+                };
+
+                Console.CursorVisible = false;
+
+                while (true)
+                {
+                    
+                    string opcao_selecionada = DrawMenu(menu_options);
+
+                    if(opcao_selecionada == "Calcular o caminho mínimo utilizando o Algoritmo de Dijkstra")
                     {
-                        Console.WriteLine("Aresta adicionada!");
+                        CalculaCaminhoMinimo();
+                        GeraTitlo();
                     }
-                    else
+                    if(opcao_selecionada == "Gerar Falha em um nó")
                     {
-                        Console.WriteLine("Ocorreu um problema ao tentar adicionar a resta.");
+                        GeraFalhaVertice();
+                    }
+                    if(opcao_selecionada == "Gerar Falha em uma aresta")
+                    {
+                        GeraFalhaAresta();
+                    }
+                    if(opcao_selecionada == "Fechar a aplicação")
+                    {
+                        Environment.Exit(1);
                     }
                 }
-            }
-            Console.WriteLine("Insira o vértice pra saber seus vizinhos");
-            string vertice1 = Console.ReadLine();
-
-            List<int> teste = new List<int>();
-            teste = g1.GetVizinhos(new Vertice(vertice1));
-
-            foreach (int i in teste)
-            {
-                Console.WriteLine("aqui: " + i);
-            }
-
-            g1.ImprimeMatrizPonderada();
-
-            //g1.ImprimeLista();
-
-
-            Console.ReadLine();
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        static void GeraFalhaVertice()
+        {
+
+            grafo = new Grafo(n);
+        }
+        static void GeraFalhaAresta()
+        {
+
+            
+        }
+        static void CalculaCaminhoMinimo()
+        {
+            Console.Clear();
+            GeraTitlo();
+            while (true)
+            {
+                Console.Write("Digite o nó origem: ");
+                string origem = Console.ReadLine();
+                Console.Write("Digite o nó destino: ");
+                string destino = Console.ReadLine();
+                Console.Write("Digite a métrica utilizada(Digite a letra \"A\" para Hops/Digite a letra \"B\" para Distância Geográfica/Digite a letra \"C\" para Custo)");
+                string metrica = Console.ReadLine();
+
+                if (metrica == "A")
+                {
+                    grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("FLO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("BLU"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("FLO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("CUR"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("RJO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BLU"), new Vertice("CUR"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUR"), new Vertice("LON"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUR"), new Vertice("SPO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("LON"), new Vertice("SPO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("LON"), new Vertice("BAU"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("RJO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("CAM"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("SJC"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("SJC"), new Vertice("CAM"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("SJC"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("BHO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("SLV"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BHO"), new Vertice("SJC"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BHO"), new Vertice("BSB"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("CAM"), new Vertice("BAU"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("CAM"), new Vertice("RBP"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("RBP"), new Vertice("BSB"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BAU"), new Vertice("CPG"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("CPG"), new Vertice("CUI"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUI"), new Vertice("MAN"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("MAN"), new Vertice("BEL"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BEL"), new Vertice("NTL"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BSB"), new Vertice("MAN"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("BSB"), new Vertice("NTL"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("NTL"), new Vertice("REC"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("REC"), new Vertice("SLV"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("SLV"), new Vertice("NTL"), 1);
+                }
+                else if (metrica == "B")
+                {
+                    grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("FLO"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("BLU"), 7);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("FLO"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("CUR"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("RJO"), 12);
+                    grafo.AdicionaArestaPonderada(new Vertice("BLU"), new Vertice("CUR"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUR"), new Vertice("LON"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUR"), new Vertice("SPO"), 5);
+                    grafo.AdicionaArestaPonderada(new Vertice("LON"), new Vertice("SPO"), 7);
+                    grafo.AdicionaArestaPonderada(new Vertice("LON"), new Vertice("BAU"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("RJO"), 5);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("CAM"), 1);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("SJC"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("SJC"), new Vertice("CAM"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("SJC"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("BHO"), 7);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("SLV"), 20);
+                    grafo.AdicionaArestaPonderada(new Vertice("BHO"), new Vertice("SJC"), 7);
+                    grafo.AdicionaArestaPonderada(new Vertice("BHO"), new Vertice("BSB"), 9);
+                    grafo.AdicionaArestaPonderada(new Vertice("CAM"), new Vertice("BAU"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("CAM"), new Vertice("RBP"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("RBP"), new Vertice("BSB"), 8);
+                    grafo.AdicionaArestaPonderada(new Vertice("BAU"), new Vertice("CPG"), 10);
+                    grafo.AdicionaArestaPonderada(new Vertice("CPG"), new Vertice("CUI"), 8);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUI"), new Vertice("MAN"), 20);
+                    grafo.AdicionaArestaPonderada(new Vertice("MAN"), new Vertice("BEL"), 18);
+                    grafo.AdicionaArestaPonderada(new Vertice("BEL"), new Vertice("NTL"), 21);
+                    grafo.AdicionaArestaPonderada(new Vertice("BSB"), new Vertice("MAN"), 22);
+                    grafo.AdicionaArestaPonderada(new Vertice("BSB"), new Vertice("NTL"), 22);
+                    grafo.AdicionaArestaPonderada(new Vertice("NTL"), new Vertice("REC"), 4);
+                    grafo.AdicionaArestaPonderada(new Vertice("REC"), new Vertice("SLV"), 8);
+                    grafo.AdicionaArestaPonderada(new Vertice("SLV"), new Vertice("NTL"), 15);
+                }
+                else if (metrica == "C")
+                {
+                    grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("FLO"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("BLU"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("FLO"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("CUR"), 5);
+                    grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("RJO"), 10);
+                    grafo.AdicionaArestaPonderada(new Vertice("BLU"), new Vertice("CUR"), 5);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUR"), new Vertice("LON"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUR"), new Vertice("SPO"), 10);
+                    grafo.AdicionaArestaPonderada(new Vertice("LON"), new Vertice("SPO"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("LON"), new Vertice("BAU"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("RJO"), 15);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("CAM"), 7);
+                    grafo.AdicionaArestaPonderada(new Vertice("SPO"), new Vertice("SJC"), 16);
+                    grafo.AdicionaArestaPonderada(new Vertice("SJC"), new Vertice("CAM"), 10);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("SJC"), 10);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("BHO"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("RJO"), new Vertice("SLV"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("BHO"), new Vertice("SJC"), 8);
+                    grafo.AdicionaArestaPonderada(new Vertice("BHO"), new Vertice("BSB"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("CAM"), new Vertice("BAU"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("CAM"), new Vertice("RBP"), 4);
+                    grafo.AdicionaArestaPonderada(new Vertice("RBP"), new Vertice("BSB"), 4);
+                    grafo.AdicionaArestaPonderada(new Vertice("BAU"), new Vertice("CPG"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("CPG"), new Vertice("CUI"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("CUI"), new Vertice("MAN"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("MAN"), new Vertice("BEL"), 2);
+                    grafo.AdicionaArestaPonderada(new Vertice("BEL"), new Vertice("NTL"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("BSB"), new Vertice("MAN"), 6);
+                    grafo.AdicionaArestaPonderada(new Vertice("BSB"), new Vertice("NTL"), 7);
+                    grafo.AdicionaArestaPonderada(new Vertice("NTL"), new Vertice("REC"), 3);
+                    grafo.AdicionaArestaPonderada(new Vertice("REC"), new Vertice("SLV"), 5);
+                    grafo.AdicionaArestaPonderada(new Vertice("SLV"), new Vertice("NTL"), 4);
+                }
+
+                List<int> rotas_r = grafo.AlgoritmoDijkstra(new Vertice(origem), new Vertice(destino));
+                foreach(int i in rotas_r)
+                {
+                    Console.Write(grafo.Vertices[i].Rotulo + "-->");
+
+                }
+                Console.WriteLine();
+                Console.WriteLine("Pressione enter para retornar ao menu anterior");
+                Console.ReadLine();
+                Console.Clear();
+                return;
+            }
+            
+        }
+
+        static int index = 0;
+        private static string DrawMenu(List<string> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (i == index)
+                {
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine(items[i]);
+                }
+                else
+                {
+                    Console.WriteLine(items[i]);
+                }
+                Console.ResetColor();
+
+
+            }
+            ConsoleKeyInfo ckey = Console.ReadKey();
+            if (ckey.Key == ConsoleKey.DownArrow)
+            {
+                if (index == items.Count - 1)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    index++;
+                }
+            }
+            else if (ckey.Key == ConsoleKey.UpArrow)
+            {
+                if (index <= 0)
+                {
+                    index = items.Count - 1;
+                }
+                else
+                {
+                    index--;
+                }
+            }
+            else if (ckey.Key == ConsoleKey.Enter) {
+                return items[index];
+            }
+            else
+            {
+                return "";
+            }
+            Console.Clear();
+            GeraTitlo();
+            return "";
+            
         }
     }
 }
