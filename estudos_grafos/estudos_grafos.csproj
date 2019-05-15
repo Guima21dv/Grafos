@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Entities\Aresta.cs" />
     <Compile Include="Entities\Grafo.cs" />
+    <Compile Include="Entities\GrafoObsoleto.cs" />
     <Compile Include="Entities\Vertice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
