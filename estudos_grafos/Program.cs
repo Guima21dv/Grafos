@@ -30,10 +30,33 @@ namespace estudos_grafos
         static int[] metrica_B = {
                 6,7,1,2,12,2,6,5,7,3,5,1,2,2,3,7,20,7,9,3,2,8,10,8,20,18,21,22,22,4,8,15
             };
-        static
+
         static void Main(string[] args)
         {
 
+            //Vertice[] vert =
+            //{
+            //    "POA",
+            //    "FLO",
+            //    "BLU",
+            //    "CUR",
+            //    "LON",
+            //    "SPO",
+            //    "SJC",
+            //    "RJO",
+            //    "BHO",
+            //    "CAM",
+            //    "RBP",
+            //    "BAU",
+            //    "CPG",
+            //    "CUI",
+            //    "MAN",
+            //    "BEL",
+            //    "BSB",
+            //    "NTL",
+            //    "REC",
+            //    "SLV"
+            //};
             
             //ADICIONANDO VÉRTICES AO GRAFO
             grafo.AdicionaVertice(new Vertice("POA"));
@@ -93,10 +116,12 @@ namespace estudos_grafos
                     if(opcao_selecionada == "Gerar Falha em um nó")
                     {
                         GeraFalhaVertice();
+                        GeraTitlo();
                     }
                     if(opcao_selecionada == "Gerar Falha em uma aresta")
                     {
                         GeraFalhaAresta();
+                        GeraTitlo();
                     }
                     if(opcao_selecionada == "Fechar a aplicação")
                     {
@@ -107,26 +132,34 @@ namespace estudos_grafos
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
         }
 
         static void GeraFalhaVertice()
         {
-
-            grafo = new Grafo(n);
+            Console.Clear();
+            GeraTitlo();
+            grafo.ImprimeVertices();
+            Console.WriteLine();
+            Console.Write("Digite qual vértice você deseja remover: ");
+            string vert = Console.ReadLine();
+            grafo.RemoveVertice(new Vertice(vert));
+            Console.Clear();
         }
         static void GeraFalhaAresta()
         {
-
+            //NÃO IMPLEMENTADO
             
         }
         static void CalculaCaminhoMinimo()
         {
             Console.Clear();
-            GeraTitlo();
             while (true)
             {
-                Console.Write("Digite o nó origem: ");
+                GeraTitlo();
+                grafo.ImprimeVertices();
+                Console.Write("\nDigite o nó origem: ");
                 string origem = Console.ReadLine();
                 Console.Write("Digite o nó destino: ");
                 string destino = Console.ReadLine();
@@ -170,6 +203,7 @@ namespace estudos_grafos
                 }
                 else if (metrica == "B")
                 {
+                    
                     grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("FLO"), 6);
                     grafo.AdicionaArestaPonderada(new Vertice("POA"), new Vertice("BLU"), 7);
                     grafo.AdicionaArestaPonderada(new Vertice("FLO"), new Vertice("FLO"), 1);
@@ -250,6 +284,7 @@ namespace estudos_grafos
                 Console.ReadLine();
                 Console.Clear();
                 return;
+
             }
             
         }

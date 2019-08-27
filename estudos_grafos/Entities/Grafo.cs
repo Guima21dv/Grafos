@@ -12,10 +12,10 @@ namespace estudos_grafos.Entities
         public int M { get; set; } // Número de arestas
         private const int INDEFINIDO = -1;
         private const int INFINITO = int.MaxValue;
-        public List<int>[] ListaAdjacencia { get; set; } // Lista de adjacência sem rótulos
-        public int[,] MatrizAdjacenciaPonderada;
+        
+        public int[,] MatrizAdjacencia;
         public Vertice[] Vertices { get; set; } //Vetor de Rótulos dos vértices
-        public List<Vertice> Lista_Vertices{get; set;}
+
 
         //CONSTRUTOR DA CLASSE
         public Grafo(int n)
@@ -23,19 +23,19 @@ namespace estudos_grafos.Entities
             //Inicialização dos atributos 
             N = n;
 
-            MatrizAdjacenciaPonderada = new int[N, N];
-            ListaAdjacencia = new List<int>[N];
-            Vertices = new Vertice[N]; 
-            Lista_Vertices = new List<Vertice>();
+            MatrizAdjacencia = new int[N, N];
+            
+            Vertices = new Vertice[N];
+
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
                 {
 
-                    MatrizAdjacenciaPonderada[i, j] = INFINITO;
+                    MatrizAdjacencia[i, j] = INFINITO;
 
                 }
-                ListaAdjacencia[i] = new List<int>();
+                
             }
         }
         //ADICIONA VÉRTICE AO VETOR DE RÓTULOS. AS POSIÇÕES DESTE VETOR SERÁ UTILIZADA PARA CRIAÇÃO DA MATRIZ e LISTA DE ADJACENCIA
@@ -62,18 +62,43 @@ namespace estudos_grafos.Entities
         {
             //Falta implementação.
             int indice_v = IndiceVertice(v);
-            if(!(indice_v == -1) && !v.IsNull())
+            bool flag = false;
+            int j = 0;
+            Vertice[] aux = new Vertice[N - 1];
+            if (!(indice_v == -1) && !v.IsNull())
             {
-                for(int i = 0;i < Vertices.Length; i++)
+                for (int i = 0; i < Vertices.Length; i++)
                 {
-
+                    if (Vertices[i].Rotulo == v.Rotulo)
+                    {
+                        Vertices[i] = null;
+                        flag = true;
+                    }
+                    if (Vertices[i] != null)
+                    {
+                        aux[j] = Vertices[i];
+                        j++;
+                    }
                 }
+                if (flag)
+                {
+                    N--;
+                    MatrizAdjacencia = new int[N, N];
+                    Vertices = aux;
+                    Console.WriteLine("Nó removido!");
+                }
+                else
+                {
+                    Console.WriteLine("Não foi possível retirar o nó.");
+                    
+                }
+
             }
             else
             {
                 Console.WriteLine("Não foi encontrado vértice correspondete!");
             }
-            N--;
+            Console.ReadLine();
         }
 
         public bool AdicionaArestaPonderada(Vertice origem, Vertice destino, int valor)
@@ -82,8 +107,8 @@ namespace estudos_grafos.Entities
             int indice_destino = IndiceVertice(destino);//Verifica se o segundo vértice existe procurando seu rótulo no vetor de vértices.
             if (indice_origem != -1 && indice_destino != -1)
             {
-                MatrizAdjacenciaPonderada[indice_origem, indice_destino] = valor;
-                MatrizAdjacenciaPonderada[indice_destino, indice_origem] = valor;
+                MatrizAdjacencia[indice_origem, indice_destino] = valor;
+                MatrizAdjacencia[indice_destino, indice_origem] = valor;
 
                 Vertices[indice_origem].Grau++;
                 Vertices[indice_destino].Grau++;
@@ -101,9 +126,9 @@ namespace estudos_grafos.Entities
         {
             List<int> vizinhos = new List<int>();
             int indice_vertice = IndiceVertice(v);
-            for(int i = 0; i < MatrizAdjacenciaPonderada.GetLength(0); i++)
+            for (int i = 0; i < MatrizAdjacencia.GetLength(0); i++)
             {
-                if(MatrizAdjacenciaPonderada[indice_vertice, i] < INFINITO)
+                if (MatrizAdjacencia[indice_vertice, i] < INFINITO)
                 {
                     vizinhos.Add(i);
                 }
@@ -113,10 +138,10 @@ namespace estudos_grafos.Entities
         //RETORNA O VALOR DE UMA ARESTA
         public int GetCusto(int vertice1, int vertice2)
         {
-            return MatrizAdjacenciaPonderada[vertice1, vertice2];
+            return MatrizAdjacencia[vertice1, vertice2];
         }
 
-  
+
         private int IndiceVertice(Vertice vertice)//Procura o rótulo do vértice parametrizado, se existir retorna o índice, else, retorna -1
         {
             for (int i = 0; i < N; i++)
@@ -134,21 +159,25 @@ namespace estudos_grafos.Entities
 
         public void ImprimeVertices()
         {
-
+            Console.WriteLine("NÓS DISPONÍVEIS: ");
+            for (int i = 0; i < Vertices.Length; i++)
+            {
+                Console.Write("[ " + Vertices[i].Rotulo + " ]  ");
+            }
         }
 
         //RE ROTULA O GRAFO PARA POSSIBILITAR O CALCULO DE CAMINHO MINIMO COM OS RÓTULOS CORRETOS
         private void ReRotular(int vertice)
         {
-            int[] aux = new int[MatrizAdjacenciaPonderada.GetLength(1)];
+            int[] aux = new int[MatrizAdjacencia.GetLength(1)];
 
             for (int i = 0; i < aux.Length; i++)
             {
-                aux[i] = MatrizAdjacenciaPonderada[0, i];
-                MatrizAdjacenciaPonderada[0, i] = MatrizAdjacenciaPonderada[vertice, i];
-                MatrizAdjacenciaPonderada[i, 0] = MatrizAdjacenciaPonderada[i, vertice];
-                MatrizAdjacenciaPonderada[vertice, i] = aux[i];
-                MatrizAdjacenciaPonderada[i, vertice] = aux[i];
+                aux[i] = MatrizAdjacencia[0, i];
+                MatrizAdjacencia[0, i] = MatrizAdjacencia[vertice, i];
+                MatrizAdjacencia[i, 0] = MatrizAdjacencia[i, vertice];
+                MatrizAdjacencia[vertice, i] = aux[i];
+                MatrizAdjacencia[i, vertice] = aux[i];
             }
             Vertice aux_v = Vertices[0];
             Vertices[0] = Vertices[vertice];
@@ -162,27 +191,13 @@ namespace estudos_grafos.Entities
                 Console.Write(i + " ");
                 for (int j = 0; j < N; j++)
                 {
-                    Console.Write(MatrizAdjacenciaPonderada[i, j] + " ");
+                    Console.Write(MatrizAdjacencia[i, j] + " ");
 
                 }
                 Console.WriteLine();
             }
         }
-        //MÉTODOS PARA IMPRESSÃO DA MATRIZ E LISTA DE ADJACÊNCIA
-
-        //public void ImprimeLista()
-        //{
-        //    for (int i = 0; i < N; i++)
-        //    {
-        //        string resultado = "(" + Vertices[i].Rotulo + ") ";
-        //        foreach (int vertice in ListaAdjacencia[i])
-        //        {
-        //            resultado += " -> " + Vertices[vertice].Rotulo;
-        //        }
-        //        Console.WriteLine(resultado);
-        //    }
-        //}
-
+        
         //CAMINHO MINIMO ALGORITMO DE DIJKSTRA
 
         public List<int> AlgoritmoDijkstra(Vertice orig, Vertice dest)
@@ -199,10 +214,10 @@ namespace estudos_grafos.Entities
                 int[] vetor_custos = new int[N];
                 HashSet<int> conj_nao_visitado = new HashSet<int>();
                 List<int> nos_antecessores = new List<int>();
-                
+
                 //Primeiro nó a (origem) tem custo 0
                 vetor_custos[indice_ori] = 0;
-                
+
                 //Todos os outros tem custo infinito
                 for (int i = 0; i < N; i++)
                 {
@@ -225,14 +240,15 @@ namespace estudos_grafos.Entities
                     foreach (int neighbor in GetVizinhos(Vertices[near]))
                     {
                         int custo_total = vetor_custos[near] + GetCusto(near, neighbor);
-                        if(custo_total < vetor_custos[neighbor])
+                        if (custo_total < vetor_custos[neighbor])
                         {
                             vetor_custos[neighbor] = custo_total;
                             antecessores[neighbor] = near;
                         }
                     }
-                    if(near == indice_des)
+                    if (near == indice_des)
                     {
+                        ReRotular(0);
                         return CriarRotas(antecessores, near);
                     }
                 }
@@ -240,8 +256,10 @@ namespace estudos_grafos.Entities
             else
             {
                 Console.WriteLine("Não foi encontrado vértices correspondentes");
+                ReRotular(0);
                 return new List<int>();
             }
+            
             return new List<int>();
 
         }
@@ -250,7 +268,7 @@ namespace estudos_grafos.Entities
         {
             List<int> rotas = new List<int>();
             rotas.Add(u);
-            while(ant[u] != INDEFINIDO)
+            while (ant[u] != INDEFINIDO)
             {
                 rotas.Add(ant[u]);
                 u = ant[u];
@@ -258,13 +276,13 @@ namespace estudos_grafos.Entities
             rotas.Reverse();
             return rotas;
         }
-        private int MenorCusto(HashSet<int>nao_visitado, int[] custo)
+        private int MenorCusto(HashSet<int> nao_visitado, int[] custo)
         {
             int menor = INFINITO;
             int minIndex = 0;
-            foreach(int i in nao_visitado)
+            foreach (int i in nao_visitado)
             {
-                if(custo[i] < menor)
+                if (custo[i] < menor)
                 {
                     menor = custo[i];
                     minIndex = i;
